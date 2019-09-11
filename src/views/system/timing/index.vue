@@ -156,7 +156,7 @@ export default {
     },
     execute(id) {
       execution(id).then(res => {
-        this.$notify({
+        this.$message({
           title: '执行成功',
           type: 'success',
           duration: 2500
@@ -168,7 +168,7 @@ export default {
     updateStatus(id, status) {
       updateIsPause(id).then(res => {
         this.init()
-        this.$notify({
+        this.$message({
           title: status + '成功',
           type: 'success',
           duration: 2500
@@ -184,8 +184,8 @@ export default {
         this.$refs[id].doClose()
         this.dleChangePage()
         this.init()
-        this.$notify({
-          title: '删除成功',
+        this.$message({
+          message: 'Delete  Success',
           type: 'success',
           duration: 2500
         })
@@ -221,8 +221,8 @@ export default {
     doAdd() {
       add(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '添加成功',
+        this.$message({
+          message: 'Add  Success',
           type: 'success',
           duration: 2500
         })
@@ -236,8 +236,8 @@ export default {
     doEdit() {
       edit(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '修改成功',
+        this.$message({
+          message: 'Edit  Success',
           type: 'success',
           duration: 2500
         })

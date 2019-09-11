@@ -409,7 +409,7 @@
                 add(this.form).then(res => {
                     this.resetForm()
                     this.$message({
-                        message: '添加成功',
+                        message: 'Add  Success',
                         type: 'success',
                         duration: 2500
                     })
@@ -426,7 +426,7 @@
                     //alert(this.form.provice)
                     this.resetForm()
                     this.$message({
-                        message: '修改成功',
+                        message: 'Edit  Success',
                         type: 'success',
                         duration: 2500
                     })
@@ -470,7 +470,7 @@
             // 监听上传失败
             handleError(e, file, fileList) {
                 const msg = JSON.parse(e.message)
-                this.$notify({
+                this.$message({
                     title: msg.message,
                     type: 'error',
                     duration: 2500
@@ -482,7 +482,7 @@
                 // sm.ms图床
                 'imagesUploadApi',
                 // 七牛云 按需选择
-                'qiNiuUploadApi'
+                `qiNiuUploadApi`
             ])
         },
         wathch:{

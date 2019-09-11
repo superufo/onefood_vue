@@ -365,8 +365,8 @@
             doAdd() {
                 add(this.form).then(res => {
                     this.resetForm()
-                    this.$notify({
-                        title: '添加成功',
+                    this.$message({
+                        message: 'Add  Success',
                         type: 'success',
                         duration: 2500
                     })
@@ -381,8 +381,8 @@
                 edit(this.form).then(res => {
                     //alert(this.form.provice)
                     this.resetForm()
-                    this.$notify({
-                        title: '修改成功',
+                    this.$message({
+                        message: 'Edit  Success',
                         type: 'success',
                         duration: 2500
                     })
@@ -425,7 +425,7 @@
             // 监听上传失败
             handleError(e, file, fileList) {
                 const msg = JSON.parse(e.message)
-                this.$notify({
+                this.$message({
                     title: msg.message,
                     type: 'error',
                     duration: 2500

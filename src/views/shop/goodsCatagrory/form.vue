@@ -51,15 +51,18 @@ export default {
     }
   },
   methods: {
-    getpidOprions() {
-        var pidOprions=[];
-        index().then(res => {
-            for (var item of res.content) {
-                let  temp = {display_name:item.cname,key:item.id,label:item.ename}
-                pidOprions.push(temp)
-            }
-        });
-        return pidOprions;
+    getpidOprions: function() {
+      var pidOprions = []
+      index().then(res => {
+        for (var item of res.content) {
+          let temp = { display_name: item.ename, display_cname: item.cname, key: item.id, label: item.ename }
+          pidOprions.push(temp)
+        }
+      })
+
+      pidOprions.push({ display_name: "Top Level", display_cname: "顶层类", key:0, label: "Top Level" })
+
+      return pidOprions
     },
     cancel() {
       this.resetForm()
@@ -73,8 +76,8 @@ export default {
     doAdd() {
       add(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '添加成功',
+        this.$message({
+          message: 'Add  Success',
           type: 'success',
           duration: 2500
         })
@@ -88,8 +91,8 @@ export default {
     doEdit() {
       edit(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '修改成功',
+        this.$message({
+          message: 'Edit  Success',
           type: 'success',
           duration: 2500
         })

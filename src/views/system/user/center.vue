@@ -121,7 +121,7 @@ export default {
       return true
     },
     handleSuccess(response, file, fileList) {
-      this.$notify({
+      this.$message({
         title: '头像修改成功',
         type: 'success',
         duration: 2500
@@ -131,7 +131,7 @@ export default {
     // 监听上传失败
     handleError(e, file, fileList) {
       const msg = JSON.parse(e.message)
-      this.$notify({
+      this.$message({
         title: msg.message,
         type: 'error',
         duration: 2500

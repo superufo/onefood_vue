@@ -153,8 +153,8 @@ export default {
         this.delLoading = false
         this.$refs[id].doClose()
         this.init()
-        this.$notify({
-          title: '删除成功',
+        this.$message({
+          message: 'Delete  Success',
           type: 'success',
           duration: 2500
         })
@@ -211,7 +211,7 @@ export default {
     // 监听上传失败
     handleError(e, file, fileList) {
       const msg = JSON.parse(e.message)
-      this.$notify({
+      this.$message({
         title: msg.message,
         type: 'error',
         duration: 2500
@@ -247,8 +247,8 @@ export default {
         this.delAllLoading = false
         this.dleChangePage(ids.length)
         this.init()
-        this.$notify({
-          title: '删除成功',
+        this.$message({
+          message: 'Delete  Success',
           type: 'success',
           duration: 2500
         })

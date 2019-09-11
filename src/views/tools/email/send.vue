@@ -108,7 +108,7 @@ export default {
           if (sub) { return false }
           this.loading = true
           send(this.form).then(res => {
-            this.$notify({
+            this.$message({
               title: '发送成功',
               type: 'success',
               duration: 2500

@@ -137,13 +137,13 @@ export default {
   },
   methods: {
      showGoodsPic(data){
-        this.isShowChildList = true;
-        this.goodsId = data.id;
-        this.shopId = data.shop.id;
+        this.isShowChildList = true
+        this.goodsId = data.id
+        this.shopId = data.shop.id
     },
     handleListClose(done){
         done()
-    } ,
+    },
     checkPermission,
     beforeInit() {
       this.url = 'api/shopGoods'
@@ -162,8 +162,8 @@ export default {
         this.$refs[id].doClose()
         this.dleChangePage()
         this.init()
-        this.$notify({
-          title: '删除成功',
+        this.$message({
+          message: 'Delete  Success',
           type: 'success',
           duration: 2500
         })

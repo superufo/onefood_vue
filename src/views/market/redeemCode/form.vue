@@ -81,8 +81,8 @@ export default {
     doAdd() {
       add(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '添加成功',
+        this.$message({
+          message: 'Add  Success',
           type: 'success',
           duration: 2500
         })
@@ -96,8 +96,8 @@ export default {
     doEdit() {
       edit(this.form).then(res => {
         this.resetForm()
-        this.$notify({
-          title: '修改成功',
+        this.$message({
+          message: 'Edit  Success',
           type: 'success',
           duration: 2500
         })

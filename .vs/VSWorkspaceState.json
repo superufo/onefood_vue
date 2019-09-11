@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\config"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\src\\config\\index.js",
   "PreviewInSolutionExplorer": false
 }

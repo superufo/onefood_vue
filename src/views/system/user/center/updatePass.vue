@@ -62,7 +62,7 @@ export default {
           this.loading = true
           updatePass(this.form).then(res => {
             this.resetForm()
-            this.$notify({
+            this.$message({
               title: '密码修改成功，请重新登录',
               type: 'success',
               duration: 1500

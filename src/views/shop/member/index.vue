@@ -145,8 +145,8 @@ export default {
         this.$refs[mid].doClose()
         this.dleChangePage()
         this.init()
-        this.$notify({
-          title: '删除成功',
+        this.$message({
+          message: 'Delete  Success',
           type: 'success',
           duration: 2500
         })

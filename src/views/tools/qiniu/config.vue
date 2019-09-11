@@ -76,8 +76,8 @@ export default {
         if (valid) {
           this.loading = true
           update(this.form).then(res => {
-            this.$notify({
-              title: '修改成功',
+            this.$message({
+              message: 'Edit  Success',
               type: 'success',
               duration: 2500
             })

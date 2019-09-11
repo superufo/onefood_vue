@@ -150,7 +150,7 @@ export default {
     doUpdate() {
       update(this.form).then(res => {
         this.resetForm()
-        this.$notify({
+        this.$message({
           title: '更新成功',
           type: 'success',
           duration: 2500

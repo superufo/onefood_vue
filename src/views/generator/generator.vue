@@ -85,7 +85,7 @@ export default {
     doSubmit() {
       this.genLoading = true
       generator(this.data, this.name).then(res => {
-        this.$notify({
+        this.$message({
           title: '生成成功',
           type: 'success',
           duration: 2500

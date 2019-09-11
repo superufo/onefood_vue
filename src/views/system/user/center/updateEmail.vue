@@ -107,7 +107,7 @@ export default {
           updateEmail(this.form.code, this.user).then(res => {
             this.loading = false
             this.resetForm()
-            this.$notify({
+            this.$message({
               title: '邮箱修改成功',
               type: 'success',
               duration: 1500

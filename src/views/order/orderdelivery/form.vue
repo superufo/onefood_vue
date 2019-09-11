@@ -376,7 +376,7 @@ export default {
       add(this.form).then(res => {
         this.resetForm()
         this.$message({
-          message: '添加成功',
+          message: 'Add  Success',
           type: 'success',
           duration: 2500
         })
@@ -391,7 +391,7 @@ export default {
       edit(this.form).then(res => {
         this.resetForm()
         this.$message({
-          message: '修改成功',
+          message: 'Edit  Success',
           type: 'success',
           duration: 2500
         })

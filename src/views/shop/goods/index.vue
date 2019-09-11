@@ -64,6 +64,22 @@
       <el-table-column prop="unit" label="货币表示"/>
       <el-table-column prop="edescription" label="英文描述" v-if="hidden" />
       <el-table-column prop="cdescription" label="中文描述"  v-if="hidden" />
+
+      <el-table-column prop="parentId" label="特色菜">
+        <template slot-scope="scope">
+          {{ !scope.row.isFeature ? '是' : '否' }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="parentId" label="热销">
+        <template slot-scope="scope">
+          {{ !scope.row.isHot ? '是' : '否' }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="parentId" label="新品">
+        <template slot-scope="scope">
+          {{ !scope.row.isNew ? '是' : '否' }}
+        </template>
+      </el-table-column>
       <el-table-column v-if="checkPermission(['ADMIN','SHOPGOODS_ALL','SHOPGOODS_EDIT','SHOPGOODS_DELETE'])" label="操作" width="180px" align="center">
         <template slot-scope="scope">
           <el-button v-permission="['ADMIN','ORDER_ALL','ORDER_EDIT']" size="mini" type="info" icon="el-icon-notebook-2" @click="showGoodsPic(scope.row)"/>
@@ -123,7 +139,10 @@ export default {
         { key: 'currency', display_name: '货币' },
         { key: 'unit', display_name: '货币表示' },
         { key: 'edescription', display_name: '英文描述' },
-        { key: 'cdescription', display_name: '中文描述' }
+        { key: 'cdescription', display_name: '中文描述' },
+        { key: 'isFeature', display_name: '特色菜' },
+        { key: 'isHot', display_name: '热销' },
+        { key: 'isNew', display_name: '新品' }
       ],
       isShowChildList:false,
       goodsId:'',
@@ -195,7 +214,10 @@ export default {
         currency: data.currency,
         unit: data.unit,
         edescription: data.edescription,
-        cdescription: data.cdescription
+        cdescription: data.cdescription,
+        isFeature:data.isFeature,
+        isHot:data.isHot,
+        isNew:data.isNew
       }
       _this.dialog = true
     }

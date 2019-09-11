@@ -13,21 +13,14 @@
     @open="callback()"
   >
     <div style="margin-right: 10px,margin-bottom: -50px; ">
-      <el-form
-        ref="form"
-        :inline="true"
-        :model="form"
-        :rules="rules"
-        size="small"
-        label-width="150px"
-        style="max-height:800px;overflow: auto; ">
+      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="150px" style="max-height:800px;overflow: auto; ">
 
         <!--<el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">-->
-        <el-input v-model="form.catagroryId" type="hidden" style="width: 100px;"/>
-        <el-row>
+        <el-input v-if="isAdd" v-model="form.catagroryId" type="hidden" style="width: 400px;"/>
+        <el-row v-if="isAdd">
           <el-col :span="12">
-            <el-form-item label="Cuisine classification" prop="flevel">
-              <!--<el-input v-model="form.catagroryId" style="width: 300px;"/>-->
+            <el-form-item label="Cuisine" prop="flevel">
+              <!--<el-input v-model="form.catagroryId" style="width: 300px;"/> Cuisine classification-->
               <el-select
                 ref="flevel"
                 v-model="flevel"
@@ -43,8 +36,15 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row v-else>
+          <el-col :span="12">
+            <el-form-item label="Cuisine" prop="flevel">
+              <el-input v-model="form.catagroryId" readonly="true" style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-        <el-row>
+        <el-row v-if="isAdd" >
           <el-col :span="12">
             <el-form-item label="    " prop="slevel">
               <el-select
@@ -80,7 +80,7 @@
           </el-col>
         </el-row>
 
-        <el-row>
+        <el-row v-if="isAdd">
           <el-col :span="12">
             <el-form-item label="所在地区">
               <!--<el-input v-model="form.shopId" style="width: 300px;"/>-->
@@ -112,7 +112,7 @@
           </el-col>
         </el-row>
 
-        <el-row>
+        <el-row v-if="isAdd">
           <el-col :span="12">
             <el-form-item label="     " prop="city">
               <el-select ref="city" v-model="city" style="width: 180px" placeholder="请选择城市" @change="getDistricts()">
@@ -139,14 +139,69 @@
         </el-row>
 
         <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="店铺ID" prop="shopId">
-              <el-select ref="shopId" v-model="form.shopId" style="width: 200px" placeholder="请选择店铺">
+              <el-select v-if="isAdd" ref="shopId" v-model="form.shopId" style="width: 200px" placeholder="请选择店铺">
                 <el-option
                   v-for="item in shopOptions"
                   :key="item.key"
                   :label="item.display_name"
                   :value="item.key"/>
+              </el-select>
+              <el-input v-else v-model="form.shopId" readonly="true" style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="特色菜">
+              <!--<el-input v-model="form.isPromote" style="width: 300px;"/>-->
+              <el-select
+                ref="isFeature"
+                v-model="form.isFeature"
+                style="width: 200px"
+                placeholder="choose isFeature"
+                label="Is Promote">
+                <el-option
+                  v-for="item in isFeatureOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="热销">
+              <el-select
+                ref="isHot"
+                v-model="form.isHot"
+                style="width: 200px"
+                placeholder="choose isHot"
+                label="Is Promote">
+                <el-option
+                  v-for="item in isHotOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"/>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="新品">
+              <el-select
+                ref="isNew"
+                v-model="form.isNew"
+                style="width: 200px"
+                placeholder="choose isNew"
+                label="Is Promote">
+                <el-option
+                  v-for="item in isNewOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -167,37 +222,41 @@
         </el-row>
 
         <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="价格" prop="price">
-              <el-input v-model="form.price" style="width: 300px;"/>
+              <el-input v-model="form.price" style="width: 200px;"/>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="折扣" prop="discount">
-              <el-input v-model="form.discount" style="width: 300px;"/>
+              <el-input v-model="form.discount" style="width: 200px;"/>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="point价格" prop="point">
-              <el-input v-model="form.point" style="width: 300px;"/>
+              <el-input v-model="form.point" style="width: 200px;"/>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="成本" prop="cost">
+              <el-input v-model="form.cost" style="width: 200px;"/>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="是否优惠卷">
               <!--<el-input v-model="form.isPromote" style="width: 300px;"/>-->
               <el-select
                 ref="isPromote"
                 v-model="form.isPromote"
-                style="width: 300px"
+                style="width: 200px"
                 placeholder="choose isPromote"
                 label="Is Promote">
                 <el-option
@@ -208,20 +267,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
 
-        <el-row>
-          <el-col :span="24">
+          <el-col :span="12">
             <el-form-item label="优惠价" prop="promotePrice">
-              <el-input v-model="form.promotePrice" style="width: 300px;"/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="成本" prop="cost">
-              <el-input v-model="form.cost" style="width: 300px;"/>
+              <el-input v-model="form.promotePrice" style="width: 200px;"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -237,7 +286,7 @@
                 label="Currency"
                 @change="changeCurent">
                 <el-option
-                  v-for="item in CurentOptions"
+                  v-for="item in curentOptions"
                   :key="item.currency"
                   :label="item.currency"
                   :value="item.currency"/>
@@ -246,8 +295,8 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="Symbol">
-              <el-input v-model="form.currencySymbol" readonly="true" style="width: 200px;"/>
+            <el-form-item label="Unit">
+              <el-input v-model="form.unit" readonly="true" style="width: 200px;"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -307,17 +356,32 @@ export default {
         currency: '',
         unit: '',
         edescription: '',
-        cdescription: ''
+        cdescription: '',
+        isFeature:1,
+        isHot:1,
+        isNew:1
       },
       countryOptions: [],
       provinceOptions: [],
       citiesOptions: [],
       streetOptions: [],
-      CurentOptions: [
+      curentOptions: [
         { currency: 'USD', symbol: '$' },
         { currency: 'RMB', symbol: '¥' },
         { currency: 'THB', symbol: '฿' },
         { currency: 'EURO', symbol: '€' }
+      ],
+      isFeatureOptions: [
+        { label: 'Yes', value: '1' },
+        { label: 'No',  value: '0' }
+      ],
+      isHotOptions: [
+        { label: 'Yes', value: '1' },
+        { label: 'No', value: '0' }
+      ],
+      isNewOptions: [
+        { label: 'Yes', value: '1' },
+        { label: 'No', value: '0' }
       ],
       country: '',
       provice: '',
@@ -341,23 +405,11 @@ export default {
         shopId: [
           { required: true, validator: 'shop cannot be empty', trigger: 'blur' }
         ],
-        lPrice: [
-          { required: true, validator: 'shop cannot be empty', trigger: 'blur' }
-        ],
         state: [
           { required: true, validator: 'state cannot be empty', trigger: 'blur' }
         ],
         price: [
           { required: true, validator: isCheckPrice, trigger: 'blur' }
-        ],
-        taxPrice: [
-          { required: true, validator: isCheckPrice, trigger: 'blur' }
-        ],
-        deliveryPrice: [
-          { required: true, validator: isCheckPrice, trigger: 'blur' }
-        ],
-        Tax: [
-          { required: true, validator: isDecimal, trigger: 'blur' }
         ]
       }
     }
@@ -366,42 +418,45 @@ export default {
   },
   methods: {
     changeCurent(current) {
-      for (var item of this.CurentOptions) {
-        if (item.currency == current) {
-          this.form.currencySymbol = item.symbol
+      for (var item of this.curentOptions) {
+        if ( item.currency == current ) {
+          this.form.unit = item.symbol
           break
         }
       }
     },
     callback() {
+      this.shopOptions = []
       this.getCountryInfo()
+
+      // 获取目录
       this.getfirst()
       this.getsecond()
       this.getthree()
+      // this.setShopId()
     },
-     getfirst() {
+    async  getfirst() {
       this.fOptions = []
       this.sOptions = []
       this.tOptions = []
       this.slevel = ''
       this.tlevel = ''
-      this.getChildrenByPid(0, this.fOptions)
+      await this.getChildrenByPid(0, this.fOptions)
 
       if (this.fOptions.length > 0) {
         this.flevel = this.fOptions[1].key
-
         this.getsecond()
       }
 
       this.setPid()
     },
-    getsecond() {
+    async getsecond() {
       this.sOptions = []
       this.tOptions = []
       this.slevel = ''
       this.tlevel = ''
       if (this.flevel > 0) {
-        this.getChildrenByPid(this.flevel, this.sOptions)
+        await this.getChildrenByPid(this.flevel, this.sOptions)
         if (this.sOptions.length > 0) {
           this.slevel = this.sOptions[1].key
           this.getChildrenByPid(this.slevel, this.tOptions)
@@ -409,11 +464,11 @@ export default {
         this.setPid()
       }
     },
-    getthree() {
+    async getthree() {
       this.tOptions = []
       this.tlevel = ''
       if (this.slevel > 0) {
-        this.getChildrenByPid(this.slevel, this.tOptions)
+        await this.getChildrenByPid(this.slevel, this.tOptions)
         if (this.tOptions.length > 0) {
           this.tlevel = this.tOptions[0].key
         }
@@ -422,17 +477,10 @@ export default {
     },
     async getChildrenByPid(pid, options) {
       var res = await getChildren(pid)
-      for (var item of res) {
-        const temp = { display_name: item.cname, key: item.id }
+      for (let item of res) {
+        let temp = { display_name: item.cname, key: item.id }
         options.push(temp)
       }
-
-      /* getChildren(pid).then(res => {
-            for (var item of res) {
-                let temp = {display_name: item.cname, key: item.id}
-                options.push(temp)
-            }
-        });*/
     },
     setPid() {
       if (this.tlevel != '') {
@@ -456,15 +504,14 @@ export default {
         this.form.catagroryId = 0
       }
     },
-    getCountryInfo() {
+    async getCountryInfo() {
       this.countryOptions = []
       this.provinceOptions = []
       this.citiesOptions = []
       this.streetOptions = []
-      this.shopOptions = []
-      getCountry().then(res => {
-        for (var item of res) {
-          const temp = { display_name: item.cname, key: item.id }
+      await getCountry().then(res => {
+        for (let item of res) {
+          let temp = { display_name: item.cname, key: item.id }
           this.countryOptions.push(temp)
         }
         this.country = this.countryOptions[0].key
@@ -472,15 +519,14 @@ export default {
         this.getCityes()
       })
     },
-    getProvinces() {
+    async getProvinces() {
       this.provinceOptions = []
       this.citiesOptions = []
       this.streetOptions = []
-      this.shopOptions = []
       if (this.country) {
-        getProvince(this.country).then(res => {
-          for (var item of res) {
-            const temp = { display_name: item.cname, key: item.id }
+        await getProvince(this.country).then(res => {
+          for (let item of res) {
+            let temp = { display_name: item.cname, key: item.id }
             this.provinceOptions.push(temp)
           }
 
@@ -494,10 +540,9 @@ export default {
     getCityes() {
       this.citiesOptions = []
       this.streetOptions = []
-      this.shopOptions = []
       if (this.provice) {
         getCity(this.provice).then(res => {
-          for (var item of res) {
+          for (const item of res) {
             const temp = { display_name: item.cname, key: item.id }
             this.citiesOptions.push(temp)
           }
@@ -514,7 +559,7 @@ export default {
       this.streetOptions = []
       if (this.provice) {
         getCity(this.city).then(res => {
-          for (var item of res) {
+          for (const item of res) {
             const temp = { display_name: item.cname, key: item.id }
             this.streetOptions.push(temp)
           }
@@ -526,18 +571,26 @@ export default {
       }
       this.setShopId()
     },
-    setShopId() {
+    async setShopId() {
       var qcountry = this.country == '' ? 0 : this.country
       var qprovice = this.provice == '' ? 0 : this.provice
       var qcity = this.city == '' ? 0 : this.city
       var qstreet = this.street == '' ? 0 : this.street
+
+      const leg = this.shopOptions.length
+      for (let i = 0; i < leg; i++) {
+        this.shopOptions.pop()
+      }
+      this.shopOptions.length = 0
       this.shopOptions = []
-      getShopByZone(qcountry, qprovice, qcity, qstreet).then(res => {
-        for (var item of res) {
-          const temp = { display_name: item.ename, key: item.id }
+
+      await getShopByZone(qcountry, qprovice, qcity, qstreet).then(res => {
+        console.log('this.shopOptions:res', res)
+        for (const itemsh of res) {
+          const temp = { display_name: itemsh.ename, key: itemsh.id }
           this.shopOptions.push(temp)
         }
-
+        console.log('this.shopOptions:', this.shopOptions)
         if (this.shopOptions.length > 0) {
           this.form.shopId = this.shopOptions[0].key
         } else {
@@ -548,7 +601,7 @@ export default {
     },
     handleClose(done) {
       done()
-      // location.reload();
+      location.reload();
     },
     cancel() {
       this.resetForm()
@@ -562,6 +615,7 @@ export default {
       }
     },
     doAdd() {
+      console.log("this.form:", this.form)
       add(this.form).then(res => {
         this.resetForm()
         this.$message({
@@ -609,7 +663,10 @@ export default {
         currency: '',
         unit: '',
         edescription: '',
-        cdescription: ''
+        cdescription: '',
+        isFeature:1,
+        isHot:1,
+        isNew:1
       }
     }
   }

@@ -1,8 +1,8 @@
 {
-  "name": "onefood pc",
+  "name": "onefoodpc",
   "version": "2.1.0",
   "license": "Apache-2.0",
-  "description": "onefood pc 前端代码",
+  "description": "onefoodpc 前端代码",
   "author": "jie <elunez@qq.com>",
   "scripts": {
     "dev": "cross-env BABEL_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/elunez/onefood pc-qd"
+    "url": "https://github.com/elunez/onefoodpc-qd"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.0.38",
